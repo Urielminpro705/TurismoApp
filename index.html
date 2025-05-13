@@ -39,24 +39,24 @@
                     <ul class="cont-desplegable-info cont-desplegable-filtros" data-isopened="true">
                         <li>
                             <Label for="filtro-atraccion">Atracciones</Label>
-                            <input type="checkbox" name="filtro-atraccion" id="filtro-atraccion" class="filtro" value="atraccion">
+                            <input type="checkbox" name="filtro-atraccion" id="filtro-atraccion" class="filtro switch" value="atraccion" checked>
                         </li>
                         <li>
                             <Label for="filtro-hotel">Hoteles</Label>
-                            <input type="checkbox" name="filtro-hotel" id="filtro-hotel" class="filtro" value="hotel">
+                            <input type="checkbox" name="filtro-hotel" id="filtro-hotel" class="filtro switch" value="hotel" checked>
                         </li>
                         <li>
                             <Label for="filtro-centro-informacion">Centros de Información</Label>
-                            <input type="checkbox" name="filtro-centro-informacion" id="filtro-centro-informacion" class="filtro" value="centro_info">
+                            <input type="checkbox" name="filtro-centro-informacion" id="filtro-centro-informacion" class="filtro switch" value="centro_info" checked>
                         </li>
                         <li>
                             <Label for="filtro-natural">Zona Natural</Label>
-                            <input type="checkbox" name="filtro-natural" id="filtro-natural" class="filtro" value="zona_natural">
+                            <input type="checkbox" name="filtro-natural" id="filtro-natural" class="filtro switch" value="zona_natural" checked>
                         </li>
                     </ul>
                 </div>
                 <hr>
-                <!-- <div id="cont-ubicaciones">
+                <div id="cont-ubicaciones">
                     <p>Localizaciones</p>
                     <div class="cont-contenido">
                         <div class="cont-desplegable card-ubi">
@@ -72,7 +72,7 @@
                         </div>
 
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="cont-bar-display" id="cont-pantalla-detalles" hidden>
                 <div class="cont-titulo">
@@ -87,6 +87,18 @@
                     <h1>Configuración</h1>
                     <button title="Cerrar Menú" class="btn-menu">
                         <i class="fa-solid fa-circle-chevron-left"></i>
+                    </button>
+                </div>
+                <h2>Tipo de mapa</h2>
+                <div class="cont-vistas-mapa">
+                    <button class="btn-vista-mapa btn-vista-mapa-selected" data-id="normal">
+                        Normal
+                    </button>
+                    <button class="btn-vista-mapa" data-id="satelital">
+                        Satelital
+                    </button>
+                    <button class="btn-vista-mapa" data-id="limpio">
+                        Limpio
                     </button>
                 </div>
             </div>

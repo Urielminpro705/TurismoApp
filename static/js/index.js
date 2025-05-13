@@ -4,6 +4,11 @@ const menu_lateral = document.getElementById("cont-bar-lateral");
 const main = document.getElementById("main");
 var pantallaActual = document.getElementById("cont-pantalla-inicio");
 const checkBoxes = document.querySelectorAll(".filtro");
+const capaPoligonos = L.layerGroup();
+const capaPuntos = L.layerGroup();
+var poligonos = null;
+var puntos =  null;
+
 var filtros = () => {
     var filtros = [];
     checkBoxes.forEach((checkBox) => {
@@ -11,14 +16,78 @@ var filtros = () => {
             filtros.push(checkBox.value);
         }
     })
-    console.log(filtros)
     return filtros;
 }
+
+const mapas = [
+    {
+        nombre: "normal",
+        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        attribution: null
+    },
+    {
+        nombre: "limpio",
+        url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+        attribution: "&copy; OpenStreetMap & CartoDB"
+    },
+    {
+        nombre: "satelital",
+        url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        attribution: "Tiles © Esri"
+    }
+]
 const map = L.map('map').setView([19.4326, -99.1332], 13);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+var capaMapaActual = L.tileLayer(mapas[0].url, {
+    attribution: mapas[0].attribution
+}).addTo(map);
+
+document.querySelectorAll(".btn-vista-mapa").forEach((btn) => {
+    btn.addEventListener("click", function () {
+        var mapaInfo = {}
+        switch(btn.getAttribute("data-id")) {
+            case "normal":
+                mapas.forEach((mapa) => {
+                    if (mapa.nombre == "normal"){
+                        mapaInfo = mapa;
+                    }
+                });
+                break;
+            case "limpio":
+                mapas.forEach((mapa) => {
+                    if (mapa.nombre == "limpio"){
+                        mapaInfo = mapa;
+                    }
+                });
+                break;
+            case "satelital":
+                mapas.forEach((mapa) => {
+                    if (mapa.nombre == "satelital"){
+                        mapaInfo = mapa;
+                    }
+                });
+                break;
+
+        }
+        map.removeLayer(capaMapaActual);
+        eliminarClase("btn-vista-mapa-selected");
+        btn.classList.toggle("btn-vista-mapa-selected");
+        capaMapaActual = L.tileLayer(mapaInfo.url, {
+            attribution: mapaInfo.attribution
+        }).addTo(map);
+    })
+});
+
+function eliminarClase(clase) {
+    document.querySelectorAll("." + clase).forEach((elemento) => {
+        elemento.classList.remove(clase);
+    });
+}
 
 checkBoxes.forEach((checkBox) => {
-    checkBox.addEventListener("change", filtros)
+    checkBox.addEventListener("change", () => {
+        dibujarPuntosPoligonos(poligonos, capaPoligonos);
+        dibujarPuntosPoligonos(puntos, capaPuntos);
+    });
 });
 
 headers_desplegables.forEach((header) => {
@@ -53,16 +122,6 @@ function toggleCont(header) {
     }
 }
 
-// function obtenerPadding(componente) {
-//     const estilos = getComputedStyle(componente);
-//     return {
-//         paddingTop: parseFloat(estilos.paddingTop),
-//         paddingLeft: parseFloat(estilos.paddingLeft),
-//         paddingRight: parseFloat(estilos.paddingRight),
-//         paddingBottom: parseFloat(estilos.paddingBottom),
-//     };
-// }
-
 function obtenerTiempoAnimacion(componente) {
     const estilos = getComputedStyle(componente);
     const duraciones = estilos.transitionDuration.split(',').map(d => d.trim());
@@ -79,7 +138,7 @@ function obtenerTiempoAnimacion(componente) {
 
 document.querySelectorAll(".btn-menu").forEach((btn) => {
     btn.addEventListener("click", function() {
-        desactivarBotonesSecciones();
+        eliminarClase("btn-bar-seccion-active");
         main.classList.add("con-bar-lateral-closed");
     });
 });
@@ -97,12 +156,11 @@ function cambiarPantalla(pantallaSiguiente) {
         pantallaActual = pantallaSiguiente;
         pantallaActual.style.removeProperty("right");
     },duracionMs);
-
 }
 
 btns_secciones.forEach((btn) => {
     btn.addEventListener("click", function() {
-        desactivarBotonesSecciones();
+        eliminarClase("btn-bar-seccion-active");
         btn.classList.add("btn-bar-seccion-active");
         main.classList.remove("con-bar-lateral-closed");
         const idPantalla = btn.getAttribute("data-id");
@@ -113,18 +171,34 @@ btns_secciones.forEach((btn) => {
     });
 });
 
-function desactivarBotonesSecciones() {
-    btns_secciones.forEach((btn) => {
-        btn.classList.remove("btn-bar-seccion-active");
+function dibujarPuntosPoligonos(data, capa) {
+    capa.clearLayers();
+    const filtrosActivos = filtros();
+
+    L.geoJSON(data, {
+        filter: function (feature) {
+            return filtrosActivos.includes(feature.properties.tipo);
+        },
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(feature.properties.nombre);
+            capa.addLayer(layer);
+        }
     });
+    if (!map.hasLayer(capa)) {
+        capa.addTo(map);
+    }
 }
 
 fetch('http://localhost:3000/poligonos')
     .then(res => res.json())
     .then(data => {
-        L.geoJSON(data, {
-        onEachFeature: (feature, layer) => {
-            layer.bindPopup(feature.properties.nombre);
-        }
-        }).addTo(map);
+        poligonos = data;
+        dibujarPuntosPoligonos(data, capaPoligonos)
+    });
+
+fetch('http://localhost:3000/puntos')
+    .then(res => res.json())
+    .then(data => {
+        puntos = data;
+        dibujarPuntosPoligonos(data, capaPuntos)
     });

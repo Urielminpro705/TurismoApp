@@ -5,7 +5,7 @@
     margin: 0;
     height: 100vh;
     overflow: auto;
-    box-shadow: 3px 0px 3px 0px rgba(155, 155, 155, 0.475);
+    box-shadow: 3px 0px 3px 0px rgba(54, 54, 54, 0.21);
     z-index: 450;
     display: flex;
     transition: 0.3s;
@@ -103,6 +103,7 @@ h1 {
     border: none;
     color: var(--secundario);
     font-size: 0.9rem;
+    cursor: pointer;
 }
 
 #cont-filters .btn-header p {
@@ -168,6 +169,7 @@ h1 {
     justify-content: space-between;
     padding: 10px;
     font-size: 0.9rem;
+    align-items: center;
 }
 
 .cont-bar-secciones {
@@ -210,4 +212,85 @@ h1 {
     border-radius: 20px 0 0 20px;
     background-color: var(--primario);
     box-shadow: 0px 6px 3px -3px rgba(155, 155, 155, 0.226);
+}
+
+.switch {
+    all: initial;
+    height: 25px;
+    width: 50px;
+    background-color: var(--secundario);
+    display: flex;
+    position: relative;
+    align-items: center;
+    transition: 0.3s;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.switch::after {
+    content: "";
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    background-color: var(--primario);
+    box-shadow: 0 1px 2px 0 rgba(100, 100, 100, 0.626);
+    transition: 0.3s;
+    left: 3px;
+    border-radius: 50px;
+}
+
+.switch:checked::after {
+    left: 28px;
+}
+
+.switch:checked {
+    background-color: var(--on);
+}
+
+.switch:checked::after {
+    background-color: white;
+}
+
+h2 {
+    font-size: 1rem;
+    padding: 0;
+    color: var(--secundario);
+    padding-left: 20px;
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.btn-vista-mapa {
+    padding: 0;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-inline: 15px;
+    border: none;
+    background-color: var(--secundario);
+    color:  var(--primario);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-vista-mapa:hover {
+    background-color: var(--primario);
+    color: var(--secundario);
+    box-shadow: 3px 3px 3px 0px rgba(155, 155, 155, 0.441);
+}
+
+.btn-vista-mapa-selected,
+.btn-vista-mapa-selected:hover {
+    box-shadow: inset 3px 3px 3px 0px rgba(155, 155, 155, 0.441);
+    background-color: var(--primario);
+    color: var(--secundario);
+}
+
+.cont-vistas-mapa {
+    width: 100%;
+    padding-left: 15px;
 }

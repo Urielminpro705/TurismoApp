@@ -10,6 +10,7 @@
     --terciario: rgb(246, 246, 246);
     --background: rgb(227, 225, 225);
     --hover: rgb(215, 214, 214);
+    --on: rgb(0, 196, 0);
 }
 
 body {
