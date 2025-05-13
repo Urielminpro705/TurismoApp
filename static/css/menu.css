@@ -1,0 +1,213 @@
+#cont-bar-lateral {
+    background-color: var(--primario);
+    width: 400px;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    overflow: auto;
+    box-shadow: 3px 0px 3px 0px rgba(155, 155, 155, 0.475);
+    z-index: 450;
+    display: flex;
+    transition: 0.3s;
+    position: relative;
+}
+
+.cont-bar-display {
+    min-width: 350px;
+    width: 350px;
+    height: 100%;
+    overflow-x: hidden;
+    position: absolute;
+    right: calc(100% - 50px);
+    background-color: var(--primario);
+    transition: 0.3s;
+}
+
+.cont-bar-display-active {
+    right: 0;
+    position: initial;
+}
+
+#main.con-bar-lateral-closed #cont-bar-lateral{
+    width: 52px;
+    overflow: hidden;
+}
+
+h1 {
+    color: var(--secundario);
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.cont-titulo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-inline: 20px;
+    box-sizing: border-box;
+}
+
+.btn-menu {
+    font-size: 1.3rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    border-radius: 25px;
+    justify-items: center;
+    align-content: center;
+}
+
+.btn-menu:hover i {
+    color: var(--primario);
+    transition: 0.2s;
+}
+
+.btn-menu:hover {
+    background-color: var(--secundario);
+    transition: 0.2s;
+}
+
+.btn-menu:active {
+    background-color: var(--primario);
+    transition: 0.2s;
+}
+
+.btn-menu:active i {
+    color: var(--secundario);
+    transition: 0.2s;
+}
+
+#cont-filters {
+    width: 100%;
+    background-color: red;
+}
+
+#cont-filters .btn-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    padding-inline: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: var(--terciario);
+    border: none;
+    color: var(--secundario);
+    font-size: 0.9rem;
+}
+
+#cont-filters .btn-header p {
+    padding: 0;
+    margin: 0;
+}
+
+#cont-filters .btn-header i {
+    transition: 0.2s;
+}
+
+#cont-filters .cont-contenido {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    background-color: green;
+}
+
+.card-ubi {
+    padding: 0;
+    margin: 0;
+    width: 90%;
+}
+
+.cont-desplegable {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.card-ubi .btn-header {
+    width: 100%;
+}
+
+.cont-contenido {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.cont-desplegable-info {
+    background-color: var(--primario);
+    transition: 0.3s;
+    overflow: hidden;
+    box-shadow: inset 0px 6px 3px -3px rgba(155, 155, 155, 0.226);
+}
+
+.cont-desplegable-filtros {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    background-color: var(--terciario);
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.cont-desplegable-filtros li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+.cont-bar-secciones {
+    height: 100vh;
+    min-width: 50px;
+    width: 50px;
+    background-color: var(--terciario);
+    transition: 0.3s;
+    z-index: 2;
+    box-shadow: inset -3px 0px 3px 0px rgba(155, 155, 155, 0.226);
+}
+
+#main.con-bar-lateral-closed .cont-bar-secciones {
+    box-shadow: none;
+}
+
+.btn-bar-seccion {
+    width: 100%;
+    height: 50px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    font-size: 1rem;
+    color: var(--secundario);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-bar-seccion:hover {
+    background-color: var(--hover);
+    transition: 0.2s;
+}
+
+.btn-bar-seccion.btn-bar-seccion-active:hover {
+    background-color: var(--primario);
+}
+
+.btn-bar-seccion-active {
+    border-radius: 20px 0 0 20px;
+    background-color: var(--primario);
+    box-shadow: 0px 6px 3px -3px rgba(155, 155, 155, 0.226);
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="static/css/prefix.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/css/menu.css">
+    <title>Turismo en León GTO</title>
+</head>
+<body>
+    <main id="main">
+        <section id="cont-bar-lateral">
+            <div class="cont-bar-secciones">
+                <button class="btn-bar-seccion btn-bar-seccion-active" title="Inicio" id="btn-seccion-inicio" data-id="cont-pantalla-inicio" >
+                    <i class="fa-solid fa-house"></i>
+                </button>
+                <button class="btn-bar-seccion" title="Detalles" id="btn-seccion-detalles" data-id="cont-pantalla-detalles">
+                    <i class="fa-solid fa-compass"></i>
+                </button>
+                <button class="btn-bar-seccion" title="Configuración" id="btn-seccion-ajustes" data-id="cont-pantalla-ajustes">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
+            <div class="cont-bar-display  cont-bar-display-active" id="cont-pantalla-inicio">
+                <div class="cont-titulo">
+                    <h1>Turismo APP</h1>
+                    <button title="Cerrar Menú" class="btn-menu">
+                        <i class="fa-solid fa-circle-chevron-left"></i>
+                    </button>
+                </div>
+                <div class="cont-desplegable" id="cont-filters">
+                    <button class="btn-header" id="btn-filters" data-hasarrow = "true">
+                        <p>Filtrar los resultados</p>
+                        <i class="fa-solid fa-caret-up"></i>
+                    </button>
+                    <ul class="cont-desplegable-info cont-desplegable-filtros" data-isopened="true">
+                        <li>
+                            <Label for="filtro-atraccion">Atracciones</Label>
+                            <input type="checkbox" name="filtro-atraccion" id="filtro-atraccion" class="filtro" value="atraccion">
+                        </li>
+                        <li>
+                            <Label for="filtro-hotel">Hoteles</Label>
+                            <input type="checkbox" name="filtro-hotel" id="filtro-hotel" class="filtro" value="hotel">
+                        </li>
+                        <li>
+                            <Label for="filtro-centro-informacion">Centros de Información</Label>
+                            <input type="checkbox" name="filtro-centro-informacion" id="filtro-centro-informacion" class="filtro" value="centro_info">
+                        </li>
+                        <li>
+                            <Label for="filtro-natural">Zona Natural</Label>
+                            <input type="checkbox" name="filtro-natural" id="filtro-natural" class="filtro" value="zona_natural">
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <!-- <div id="cont-ubicaciones">
+                    <p>Localizaciones</p>
+                    <div class="cont-contenido">
+                        <div class="cont-desplegable card-ubi">
+                            <button class="btn-header" data-hasarrow = "false">
+                                <p>Parque Metropolitano de León</p>
+                            </button>
+                            <div class="cont-desplegable-info" data-isopened="false">
+                                <p>Lol</p>
+                                <p>Lol</p>
+                                <p>Lol</p>
+                                <p>Lol</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> -->
+            </div>
+            <div class="cont-bar-display" id="cont-pantalla-detalles" hidden>
+                <div class="cont-titulo">
+                    <h1>Detalles</h1>
+                    <button title="Cerrar Menú" class="btn-menu">
+                        <i class="fa-solid fa-circle-chevron-left"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="cont-bar-display" id="cont-pantalla-ajustes" hidden>
+                <div class="cont-titulo">
+                    <h1>Configuración</h1>
+                    <button title="Cerrar Menú" class="btn-menu">
+                        <i class="fa-solid fa-circle-chevron-left"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section id="cont-map">
+            <div id="map"></div>
+        </section>
+    </main>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="static/js/index.js"></script>
+</body>
+</html>
