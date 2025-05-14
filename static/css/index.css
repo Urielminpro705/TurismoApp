@@ -19,3 +19,10 @@
 #main.con-bar-lateral-closed #cont-map {
     width: 100%;
 }
+
+@media(max-width: 470px){
+    #cont-map {
+        width: 100%;
+        transition: 0.3s;
+    }
+}

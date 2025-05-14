@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/css/prefix.css">
     <link rel="stylesheet" href="static/css/index.css">
     <link rel="stylesheet" href="static/css/menu.css">
+    <link rel="stylesheet" href="static/css/detail-screen.css">
     <title>Turismo en León GTO</title>
 </head>
 <body>
@@ -18,6 +19,9 @@
                     <i class="fa-solid fa-house"></i>
                 </button>
                 <button class="btn-bar-seccion" title="Detalles" id="btn-seccion-detalles" data-id="cont-pantalla-detalles">
+                    <i class="fa-solid fa-location-dot"></i>
+                </button>
+                <button class="btn-bar-seccion" title="Navegación" id="btn-seccion-navegacion" data-id="cont-pantalla-navegacion">
                     <i class="fa-solid fa-compass"></i>
                 </button>
                 <button class="btn-bar-seccion" title="Configuración" id="btn-seccion-ajustes" data-id="cont-pantalla-ajustes">
@@ -34,9 +38,9 @@
                 <div class="cont-desplegable" id="cont-filters">
                     <button class="btn-header" id="btn-filters" data-hasarrow = "true">
                         <p>Filtrar los resultados</p>
-                        <i class="fa-solid fa-caret-up"></i>
+                        <i class="fa-solid fa-caret-down"></i>
                     </button>
-                    <ul class="cont-desplegable-info cont-desplegable-filtros" data-isopened="true">
+                    <ul class="cont-desplegable-info cont-desplegable-filtros" data-isopened="false">
                         <li>
                             <Label for="filtro-atraccion">Atracciones</Label>
                             <input type="checkbox" name="filtro-atraccion" id="filtro-atraccion" class="filtro switch" value="atraccion" checked>
@@ -50,27 +54,24 @@
                             <input type="checkbox" name="filtro-centro-informacion" id="filtro-centro-informacion" class="filtro switch" value="centro_info" checked>
                         </li>
                         <li>
-                            <Label for="filtro-natural">Zona Natural</Label>
+                            <Label for="filtro-restaurantes">Restaurantes</Label>
+                            <input type="checkbox" name="filtro-restaurantes" id="filtro-restaurantes" class="filtro switch" value="restaurante" checked>
+                        </li>
+                        <li>
+                            <Label for="filtro-natural">Zonas Natural</Label>
                             <input type="checkbox" name="filtro-natural" id="filtro-natural" class="filtro switch" value="zona_natural" checked>
+                        </li>
+                        <li>
+                            <Label for="filtro-zonas-turisticas">Zonas Turisticas</Label>
+                            <input type="checkbox" name="filtro-zonas-turisticas" id="filtro-zonas-turisticas" class="filtro switch" value="zona_turistica" checked>
                         </li>
                     </ul>
                 </div>
                 <hr>
                 <div id="cont-ubicaciones">
-                    <p>Localizaciones</p>
-                    <div class="cont-contenido">
-                        <div class="cont-desplegable card-ubi">
-                            <button class="btn-header" data-hasarrow = "false">
-                                <p>Parque Metropolitano de León</p>
-                            </button>
-                            <div class="cont-desplegable-info" data-isopened="false">
-                                <p>Lol</p>
-                                <p>Lol</p>
-                                <p>Lol</p>
-                                <p>Lol</p>
-                            </div>
-                        </div>
-
+                    <p class="local-main-title">Localizaciones</p>
+                    <div id="cont-locations" class="cont-contenido">
+                        <!-- Aqui van card locations -->
                     </div>
                 </div>
             </div>
@@ -80,6 +81,17 @@
                     <button title="Cerrar Menú" class="btn-menu">
                         <i class="fa-solid fa-circle-chevron-left"></i>
                     </button>
+                </div>
+                <div id="body-detail">
+                    <div id="img-detail">
+                        <p>Selecciona una locación para obtener su Información <i class="fa-regular fa-face-smile-wink"></i></p>
+                    </div>
+                    <h3 id="title-detail"></h3>
+                    <p class="sub-detail"><i class="fa-solid fa-map-location-dot"></i> A <span id="km-detail"></span> km</p>
+                    <p id="text-detail"></p>
+                    <div id="props-detail">
+                    </div>
+                    
                 </div>
             </div>
             <div class="cont-bar-display" id="cont-pantalla-ajustes" hidden>
@@ -102,6 +114,38 @@
                     </button>
                 </div>
             </div>
+            <div class="cont-bar-display" id="cont-pantalla-navegacion" hidden>
+                <div class="cont-titulo">
+                    <h1>Navegación</h1>
+                    <button title="Cerrar Menú" class="btn-menu">
+                        <i class="fa-solid fa-circle-chevron-left"></i>
+                    </button>
+                </div>
+                <h2>¿Donde estarás?</h2>
+                <div class="cont-barra-busqueda">
+                    <input type="text" id="barra-busqueda" placeholder="Buscar una ubicación" class="input-busqueda">
+                    <button id="btn-busqueda" title="Buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <div class="cont-ubicacion-actual">
+                    <p class="direccion-actual-titulo">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Ubicacion de referencia
+                    </p>
+                    <p class="direccion-actual-txt">---Busca una dirección---</p>
+                    <p class="direccion-actual-cords"></p>
+                </div>
+                <div class="cont-desplegable" id="cont-ubicaciones-cercanas">
+                    <button class="btn-header" id="btn-ubicaciones-cercanas" data-hasarrow = "true">
+                        <p>A maximo 5 KM de distancia</p>
+                        <i class="fa-solid fa-caret-up"></i>
+                    </button>
+                    <div class="cont-desplegable-info cont-desplegable-ubicaciones-cercanas" data-isopened="true">
+                    
+                    </div>
+                </div>
+            </div>
         </section>
         <section id="cont-map">
             <div id="map"></div>
@@ -109,6 +153,7 @@
     </main>
     
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
     <script src="static/js/index.js"></script>
 </body>
 </html>

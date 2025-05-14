@@ -6,7 +6,7 @@ app.use(cors());
 
 app.get('/puntos', async (req, res) => {
     const result = await pool.query(`
-        SELECT id, nombre, tipo, descripcion, telefono, horario, ST_AsGeoJSON(geom) AS geom FROM lugares;
+        SELECT id, nombre, tipo, imagen, descripcion, telefono, horario, ST_AsGeoJSON(geom) AS geom FROM lugares;
     `);
     const geojson = {
         type: "FeatureCollection",
@@ -17,6 +17,7 @@ app.get('/puntos', async (req, res) => {
                 id: row.id, 
                 nombre: row.nombre, 
                 tipo: row.tipo, 
+                imagen: row.imagen, 
                 descripcion: row.descripcion, 
                 telefono: row.telefono, 
                 horario: row.horario
@@ -28,7 +29,7 @@ app.get('/puntos', async (req, res) => {
 
 app.get('/poligonos', async (req, res) => {
     const result = await pool.query(`
-        SELECT id, nombre, tipo, descripcion, acceso, ST_AsGeoJSON(geom) AS geom FROM zonas;
+        SELECT id, nombre, tipo, imagen, descripcion, acceso, ST_AsGeoJSON(geom) AS geom FROM zonas;
     `);
     const geojson = {
         type: "FeatureCollection",
@@ -39,6 +40,7 @@ app.get('/poligonos', async (req, res) => {
                 id: row.id, 
                 nombre: row.nombre, 
                 tipo: row.tipo, 
+                imagen: row.imagen, 
                 descripcion: row.descripcion, 
                 acceso: row.acceso
             }
