@@ -243,6 +243,9 @@ function dibujarPuntosPoligonos(data, capa) {
                 case "zona_natural":
                     color = "#1fb471a5";
                     break;
+                case "zona_turistica":
+                    color = "#00eaffb3";
+                    break;
             }
 
             return {
