@@ -133,7 +133,7 @@ headers_desplegables.forEach((header) => {
     });
 });
 
-function volarHacia(lat, lng, zoom=15){
+function volarHacia(lat, lng, zoom=18){
     map.flyTo([lat, lng], zoom);
 }
 
@@ -270,10 +270,10 @@ function dibujarPuntosPoligonos(data, capa) {
             }
 
             const iconoPersonalizado = L.icon({
-                    iconUrl: url,
-                    iconSize: [40, 40], 
-                    iconAnchor: [16, 32], 
-                    popupAnchor: [0, -32] 
+                iconUrl: url,
+                iconSize: [40, 40], 
+                iconAnchor: [16, 32], 
+                popupAnchor: [0, -32] 
             });
 
             return L.marker(latlng, { icon: iconoPersonalizado });
@@ -392,9 +392,9 @@ function agregarMarker() {
             nombre: data_temporal_ubicacion[0].display_name
         };
         mostrarUbicacionActual();
-        loadLocations(puntos, poligonos);
-        const { puntosVecinos, poligonosVecinos } = encontrarVecinos(5);
+        const { puntosVecinos, poligonosVecinos } = encontrarVecinos(2);
         loadLocations(puntosVecinos, poligonosVecinos, ".cont-desplegable-ubicaciones-cercanas");
+        loadLocations(puntos, poligonos);
         marker_temporal = null;
     }
 }
@@ -424,6 +424,7 @@ function calcularDistancia(destinoLat, destinoLng) {
         }
 
         listPuntos = puntos.features.map(point => {
+            console.log("se agrego el id: "+point.id)
             const [lng, lat] = point.geometry.coordinates;
             return{
                 ...point.properties,
@@ -579,3 +580,48 @@ function encontrarVecinos(distancia) {
         }
     }
 }
+
+
+// function agruparPuntosPorZoom() {
+//     const zoom = map.getZoom();
+//     const distancia = zoom > 14 ? 100 : zoom > 12 ? 500 : 1000;
+//     const coleccionPuntos = turf.featureCollection(puntos.features);
+
+//     const clustered = turf.clustersDbscan(coleccionPuntos, distancia, { units: 'meters' });
+
+//     const clustersFiltrados = {};  // agrupamos los puntos por id de cluster
+
+//     clustered.features.forEach(feature => {
+//         const clusterId = feature.properties.cluster;
+//         if (clusterId !== undefined && clusterId !== null) {
+//             if (!clustersFiltrados[clusterId]) clustersFiltrados[clusterId] = [];
+//             clustersFiltrados[clusterId].push(feature);
+//         }
+//     });
+
+//     const puntosClusterizados = [];
+
+//     // Generamos un punto central por cada grupo de puntos
+//     Object.values(clustersFiltrados).forEach(cluster => {
+//         const centroide = turf.centroid(turf.featureCollection(cluster));
+//         centroide.properties.tipo = cluster[0].properties.tipo;
+//         centroide.properties.nombre = "Cluster de " + cluster.length + " puntos";
+//         puntosClusterizados.push(centroide);
+//     });
+
+//     // Agregar los puntos no agrupados (cluster = null)
+//     clustered.features.forEach(feature => {
+//         if (feature.properties.cluster === null) {
+//             puntosClusterizados.push(feature);
+//         }
+//     });
+
+//     const agrupados = turf.featureCollection(puntosClusterizados);
+//     dibujarPuntosPoligonos(agrupados, capaPuntos);
+// }
+
+// map.on('zoomend', function() {
+//     agruparPuntosPorZoom();
+// });
+
+// agruparPuntosPorZoom();
